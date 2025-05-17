@@ -43,7 +43,8 @@ class AuthenticatedSessionController extends Controller
 
         // เปลี่ยนเส้นทางไปยังหน้า dashboard หรือหน้าที่คุณต้องการหลังจากเข้าสู่ระบบ
         // ในที่นี้เราจะเปลี่ยนเส้นทางไปยังหน้า dashboard
-        return redirect()->route('dashboard');
+        // return redirect()->route('dashboard');
+        return redirect('/dashboard');
     }
 
 
