@@ -12,6 +12,9 @@ export default defineConfig({
         react(),
         tailwindcss(),
     ],
+    server: {
+        https: true, // Enable HTTPS
+    },
     esbuild: {
         jsx: 'automatic',
     },
