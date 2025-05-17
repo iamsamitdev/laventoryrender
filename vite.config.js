@@ -15,9 +15,10 @@ export default defineConfig({
     server: {
         https: true, // Enable HTTPS
     },
-    base: process.env.APP_URL || 'https://laventoryrender.onrender.com/',
+    base: '/build/', // หรือปล่อยว่างเป็น '' เพื่อให้ Vite ใช้ relative path
     build: {
-        outDir: 'public/build', // ตรวจสอบว่า output อยู่ใน public/build
+        outDir: 'public/build',
+        assetsDir: '', // ทำให้ assets ไม่อยู่ในโฟลเดอร์ย่อย
     },
     esbuild: {
         jsx: 'automatic',
