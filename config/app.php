@@ -52,7 +52,9 @@ return [
     |
     */
 
-    'url' => env('APP_URL', 'http://localhost'),
+    // 'url' => env('APP_URL', 'http://localhost'),
+    'url' => env('APP_URL', 'https://laventoryrender.onrender.com'),
+    'asset_url' => env('APP_URL', 'https://laventoryrender.onrender.com'),
 
     /*
     |--------------------------------------------------------------------------

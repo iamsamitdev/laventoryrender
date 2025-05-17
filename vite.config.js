@@ -15,6 +15,7 @@ export default defineConfig({
     server: {
         https: true, // Enable HTTPS
     },
+    base: process.env.APP_URL || 'https://laventoryrender.onrender.com/',
     build: {
         outDir: 'public/build', // ตรวจสอบว่า output อยู่ใน public/build
     },
