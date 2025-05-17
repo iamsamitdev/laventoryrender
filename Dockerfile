@@ -1,7 +1,7 @@
 # ใช้ base image ที่มี PHP และ Node.js
 FROM php:8.2-fpm
 
-# ติดตั้ง dependencies ที่จำเป็น
+# ติดตั้ง dependencies และ tools ที่จำเป็น
 RUN apt-get update && apt-get install -y \
     git \
     curl \
@@ -10,7 +10,8 @@ RUN apt-get update && apt-get install -y \
     libxml2-dev \
     zip \
     unzip \
-    && docker-php-ext-install pdo_mysql mbstring exif pcntl bcmath gd
+    && docker-php-ext-install pdo pdo_mysql mbstring exif pcntl bcmath gd xml \
+    && docker-php-ext-enable pdo_mysql mbstring exif pcntl bcmath gd xml
 
 # ติดตั้ง Composer
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
@@ -26,7 +27,7 @@ WORKDIR /var/www
 COPY . .
 
 # ติดตั้ง PHP dependencies
-RUN composer install --optimize-autoloader --no-dev
+RUN composer install --optimize-autoloader --no-dev --ignore-platform-reqs
 
 # ติดตั้ง Node.js dependencies และ build frontend assets
 RUN npm install && npm run build
@@ -35,7 +36,8 @@ RUN npm install && npm run build
 RUN chown -R www-data:www-data /var/www/storage /var/www/bootstrap/cache
 
 # รัน migration (ถ้ามี)
-RUN php artisan migrate --force
+# หมายเหตุ: ถ้าคุณยังไม่ได้ตั้งค่า database, ให้คอมเมนต์บรรทัดนี้ก่อน
+# RUN php artisan migrate --force
 
 # เปิด port
 EXPOSE 10000
