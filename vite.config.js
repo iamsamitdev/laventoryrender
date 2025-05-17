@@ -15,6 +15,9 @@ export default defineConfig({
     server: {
         https: true, // Enable HTTPS
     },
+    build: {
+        outDir: 'public/build', // ตรวจสอบว่า output อยู่ใน public/build
+    },
     esbuild: {
         jsx: 'automatic',
     },
