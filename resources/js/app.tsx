@@ -1,9 +1,25 @@
 import '../css/app.css'
 
-import { createInertiaApp } from '@inertiajs/react'
+import { createInertiaApp, router } from '@inertiajs/react'
 import { resolvePageComponent } from 'laravel-vite-plugin/inertia-helpers'
 import { createRoot } from 'react-dom/client'
 import { route as routeFn } from 'ziggy-js'
+
+// Define interface for the event detail
+interface InertiaBeforeEvent {
+  detail: {
+    visit: {
+      headers: Record<string, string>;
+    };
+  };
+}
+
+router.on('before', (event: InertiaBeforeEvent) => {
+  const token = document.querySelector('meta[name="csrf-token"]')?.getAttribute('content');
+  if (token) {
+    event.detail.visit.headers['X-CSRF-TOKEN'] = token;
+  }
+});
 
 // ประกาศ type สำหรับ Ziggy
 declare global {
