@@ -8,10 +8,12 @@ RUN apt-get update && apt-get install -y \
     libpng-dev \
     libonig-dev \
     libxml2-dev \
+    libpq-dev \
     zip \
     unzip \
     && docker-php-ext-install pdo pdo_mysql pdo_pgsql pgsql mbstring exif pcntl bcmath gd xml \
-    && docker-php-ext-enable pdo_mysql pdo_pgsql pgsql mbstring exif pcntl bcmath gd xml
+    && docker-php-ext-enable pdo_mysql pdo_pgsql pgsql mbstring exif pcntl bcmath gd xml \
+    && apt-get clean && rm -rf /var/lib/apt/lists/*
 
 # ติดตั้ง Composer
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
